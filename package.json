@@ -24,7 +24,7 @@
     "presetup": "rimraf build && mkdirp build",
     "postbuild:tsshared": "npm run build:tssharedDec",
     "postbuild:tssharedDec": "rimraf typings/local/mtb.js",
-    "postsetup": "rimraf tmp"
+    "postsetup": "rimraf build/tmp"
   },
   "keywords": [
     "meteor",
