@@ -9,28 +9,11 @@ declare var ReactMeteorData: any;
 export default class App extends React.Component<{}, { counters: shared.contract.ICounter[] }> {
 	constructor() {
 		super();
-		
-		Tracker.autorun(() => {
-			this.setState(this.getMeteorData())
-		});	
 	}
-	
-	public getInitialState() {
-		return {
-			counters: shared.collections.counterCollection.find().fetch()	
-		};
-	}
-	
-	public getMeteorData() {
-		return {
-			counters: shared.collections.counterCollection.find().fetch()
-		};
-	}	
 	
 	public renderCounters() {
-		return this.state.counters.map((counter: shared.contract.ICounter) => {
-			console.log(counter);
-			return (<Counter name={counter.name} value={counter.value} />)
+		return shared.collections.counterCollection.find().fetch().map((counter: shared.contract.ICounter) => {
+			return (<Counter key={counter._id} id={counter._id} name={counter.name} value={counter.value} />)
 		});
 	}
 	

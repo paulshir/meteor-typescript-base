@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as shared from '../shared/shared'
 import * as subscribe from './subscribe'
 import * as templates from './templates/counter'
-// import App from './App'
+import App from './App'
 
 export {shared}
 
@@ -14,10 +14,10 @@ subscribe.SubscribeAll();
 
 templates.LoadCounterTemplate();
 
-// export function render() {
-// 	React.render(<App />, document.getElementById('render-target'));
-// }
+export function render() {
+	React.render(<App />, document.getElementById('render-target'));
+}
 
-// Meteor.startup(() => {
-// 	render();
-// });
+Meteor.startup(() => {
+	render();
+});
