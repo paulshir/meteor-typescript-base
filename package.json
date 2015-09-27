@@ -1,30 +1,22 @@
 {
   "name": "meteor-typescript-bootstrap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A project which contains the bare bones of a Meteor app based on typescript.",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:ts && npm run build:css && npm run build:html && npm run build:public",
-    "build:css": "cssnext templates/exports.css build/client/templates.css && cssnext css/exports.css build/client/main.css",
-    "build:html": "cp -r templates/**.html build/client && cp -r html/**.html build/client",
-    "build:public": "cp -r public/** build/public",
-    "build:ts": "npm run build:tsshared && npm run build:tsclient && npm run build:tsserver",
-    "build:tsclient": "tsc --out build/client/client.js --target ES5 --noImplicitAny scripts/client/client.ts",
-    "build:tsserver": "tsc --out build/server/server.js --target ES5 --noImplicitAny scripts/server/server.ts",
-    "build:tsshared": "tsc --out build/lib/shared.js --target ES5 --noImplicitAny scripts/shared/shared.ts",
-    "build:tssharedDec": "tsc --out typings/local/mtb.js --target ES5 --noImplicitAny --declaration scripts/shared/shared.ts",
-    "clean": "rimraf build/server build/client build/lib build/public build/shared build/public && mkdirp build/public",
+    "build": "webpack --config ./webpack/dev.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "meteor": "cd build && meteor run",
     "meteor:mongo": "cd build && meteor mongo",
     "meteor:debug": "cd build && meteor debug",
     "meteor:deploy": "cd build && meteor deploy meteor-typescript-bootstrap.meteor.com",
-    "setup": "cd build && meteor create tmp && cp -r tmp/.meteor . && meteor remove insecure autopublish && meteor add accounts-ui accounts-google",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "npm run clean",
     "presetup": "rimraf build && mkdirp build",
-    "postbuild:tsshared": "npm run build:tssharedDec",
-    "postbuild:tssharedDec": "rimraf typings/local/mtb.js",
-    "postsetup": "rimraf build/tmp"
+    "postsetup": "rimraf build/tmp",
+    "setup": "cd build && meteor create tmp && cp -r tmp/.meteor . && meteor remove insecure autopublish && meteor add accounts-ui accounts-google react"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulshir/meteor-typescript-bootstrap.git"
   },
   "keywords": [
     "meteor",
@@ -32,11 +24,19 @@
   ],
   "author": "Paul Shirley",
   "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/paulshir/meteor-typescript-bootstrap/issues"
+  },
+  "homepage": "https://github.com/paulshir/meteor-typescript-bootstrap#readme",
   "devDependencies": {
-    "cssnext": "^1.8.3",
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "expose-loader": "^0.7.0",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.4.2",
-    "tsd": "^0.6.3",
-    "typescript": "^1.5.3"
+    "rimraf": "^2.4.3",
+    "ts-loader": "^0.5.5",
+    "tsd": "^0.6.4",
+    "typescript": "^1.6.2",
+    "webpack": "^1.12.2"
   }
 }

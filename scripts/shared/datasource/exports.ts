@@ -1,15 +1,16 @@
 /// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path="../contract/common.ts" />
-/// <reference path="../contract/counter.ts" />
 
-/// <reference path="../collections/exports.ts" />
+import * as contract from '../contract/exports'
+import collections from '../collection/exports'
+import * as counter from './counter'
+export * from './counter'
 
-/// <reference path="common.ts" />
-/// <reference path="counter.ts" />
-
-namespace _mtb.shared.datasource {
+export default class __datasources {
+	public static counterDataSource: counter.ICounterDataSource;
 	
-	export function InitializeDataSources(): void {
-		InitializeCounterDataSource(collections.counterCollection);
+	public static InitializeDataSources() {
+		if (!__datasources.counterDataSource) {
+			__datasources.counterDataSource = counter.CounterDataSource.getInstance();
+		}
 	}
 }

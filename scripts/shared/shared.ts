@@ -1,13 +1,10 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="contract/common.ts" />
-/// <reference path="contract/counter.ts" />
+import * as contract from './contract/exports';
+// import * as collection from './collection/exports';
+import collections from './collection/exports';
+import * as validation from './validation/exports';
+// import * as datasource from './datasource/exports';
+import datasources from './datasource/exports';
 
-/// <reference path="collections/exports.ts" />
-/// <reference path="datasource/exports.ts" />
-
-namespace _mtb.shared {
-}
-
-declare var mtb: { shared: typeof _mtb.shared, server: any; client: any };
-mtb = { shared: _mtb.shared, server: null, client: null };
+export { contract, collections, validation, datasources }

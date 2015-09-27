@@ -1,14 +1,7 @@
-/// <reference path="imports.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
+import * as shared from '../shared/shared'
+import * as publish from './publish'
 
-/// <reference path="publish/exports.ts" />
-
-namespace _mtb.server {
-	Meteor.startup(() => {
-		mtb.shared.collections.InitializeCollections();
-		publish.PublishAll();
-		mtb.shared.datasource.InitializeDataSources();
-	})
-}
-
-mtb.server = _mtb.server;
-
+shared.collections.InitializeCollections();
+shared.datasources.InitializeDataSources();
+publish.PublishAll();

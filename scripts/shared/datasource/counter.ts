@@ -1,107 +1,85 @@
 /// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path="../contract/common.ts" />
-/// <reference path="../contract/counter.ts" />
-/// <reference path="../collections/common.ts" />
-/// <reference path="../validation/counter.ts" />
 
-/// <reference path="common.ts" />
+import * as contract from '../contract/exports'
+import * as validation from '../validation/exports'
+import collections from '../collection/exports'
 
-namespace _mtb.shared.datasource {
-	export interface ICounterDataSource {
-		newCounter(name: string, callback?: MeteorCallCallback<Mongo.ObjectID>): void;
-		incrementCounter(id: string, callback?: MeteorCallCallback<any>): void;
-		removeCounter(id: string, callback?: MeteorCallCallback<any>): void;
+import * as base from './common'
+
+
+export interface ICounterDataSource {
+	newCounter(name: string, callback?: base.MeteorCallCallback<Mongo.ObjectID>): Mongo.ObjectID;
+	incrementCounter(id: string, callback?: base.MeteorCallCallback<any>): void;
+	removeCounter(id: string, callback?: base.MeteorCallCallback<any>): void;
+}
+
+export class CounterDataSource extends base.DataSourceBase<contract.ICounter> implements ICounterDataSource {
+	private static instance: CounterDataSource;
+	
+	constructor() {
+		super("counter", collections.counterCollection);
+		if (CounterDataSource.instance !== undefined) {
+			throw new Error("CounterDataSource is already defined and is singleton. Use getInstance Method to access.")
+		}
+		
+		CounterDataSource.instance = this;
+		
+		this.methods(this, this.meteorCallMethods);
 	}
 	
-	const MethodCalls = {
-		insert: "insert",
-		increment: "increment",
-		remove: "remove"
+	public static getInstance(): CounterDataSource {
+		if (CounterDataSource.instance === undefined) {
+			return new CounterDataSource();
+		}
+		
+		return CounterDataSource.instance;
 	}
 	
-	class CounterDataSource extends DataSourceBase<contract.ICounter> implements ICounterDataSource {
-		constructor(collection: collections.DenyAllCollection<contract.ICounter>) {
-			super("counter", collection)
+	@base.meteorCall(CounterDataSource)
+	public newCounter(name: string, callback?: base.MeteorCallCallback<Mongo.ObjectID>): Mongo.ObjectID {
+		var err = validation.ValidateUserLoggedIn();
 			
-			var methods: any = {};
-			methods[MethodCalls.insert] = this.getInsertMethod();
-			methods[MethodCalls.increment] = this.getIncrementMethod();
-			methods[MethodCalls.remove] = this.getRemoveMethod();
-			
-			this.methods(methods);
+		if (!err) {
+			err = validation.ValidateNewCounter(name);
 		}
 		
-		public newCounter(name: string, callback?: MeteorCallCallback<Mongo.ObjectID>): void {
-			this.call(MethodCalls.insert, name, callback);
+		if (err) {
+			throw new Meteor.Error(err);
 		}
 		
-		public incrementCounter(id: string, callback?: MeteorCallCallback<any>): void {
-			this.call(MethodCalls.increment, id, callback);
-		}
+		var counter = <contract.ICounter> { 
+			name: name,
+			userId: Meteor.userId(),
+			createdUtc: new Date(),
+			updatedUtc: new Date(),
+			value: 0
+		};
 		
-		public removeCounter(id: string, callback?: MeteorCallCallback<any>): void {
-			this.call(MethodCalls.remove, id, callback);
-		}
-		
-		private getInsertMethod(): (name: string) => Mongo.ObjectID {
-			var collection = this.collection;
-			return function(name: string): Mongo.ObjectID {
-				var err = validation.ValidateUserLoggedIn();
-				
-				if (!err) {
-					err = validation.ValidateNewCounter(name);
-				}
-				
-				if (err) {
-					throw new Meteor.Error(err);
-				}
-				
-				var counter = <contract.ICounter> { 
-					name: name,
-					userId: Meteor.userId(),
-					createdUtc: new Date(),
-					updatedUtc: new Date(),
-					value: 0
-				};
-				
-				return collection.insert(counter);
-			}
-		}
-		
-		private getIncrementMethod(): (id: string) => void {
-			var collection = this.collection;
-			return function(id: string): void {
-				var err = validation.ValidateUserLoggedInAndModifyAllowed(collection, id);
-				if (err) {
-					throw new Meteor.Error(err);
-				}
-				
-				var modifier = <Mongo.Modifier> {
-					$inc: { value: 1 },
-					$set: { updatedUtc: new Date() }
-				};
-				
-				collection.update(id, modifier);
-			}
-		}
-		
-		private getRemoveMethod(): (id: string) => void {
-			var collection = this.collection;
-			return function(id: string): void {
-				var err = validation.ValidateUserLoggedInAndModifyAllowed(collection, id);
-				if (err) {
-					throw new Meteor.Error(err);
-				}
-				
-				collection.remove(id);
-			}
-		}
+		return this.collection.insert(counter);
 	}
 	
-	export var counterDataSource: ICounterDataSource;
-	export function InitializeCounterDataSource(collection: collections.DenyAllCollection<contract.ICounter>) {
-		if (!counterDataSource) {
-			counterDataSource = new CounterDataSource(collection);
+	@base.meteorCall(CounterDataSource)
+	public incrementCounter(id: string, callback?: base.MeteorCallCallback<any>): void {
+		var err = validation.ValidateUserLoggedInAndModifyAllowed(this.collection, id);
+		if (err) {
+			throw new Meteor.Error(err);
 		}
+		
+		var modifier = <Mongo.Modifier> {
+			$inc: { value: 1 },
+			$set: { updatedUtc: new Date() }
+		};
+			
+		this.collection.update(id, modifier);
+	}
+	
+	@base.meteorCall(CounterDataSource)
+	public removeCounter(id: string, callback?: base.MeteorCallCallback<any>): void {
+		var err = validation.ValidateUserLoggedInAndModifyAllowed(this.collection, id);
+		if (err) {
+			throw new Meteor.Error(err);
+		}
+		
+		this.collection.remove(id);
 	}
 }

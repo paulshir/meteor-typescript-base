@@ -2,16 +2,9 @@
 
 ## Installation ##
 ```bash
-git clone https://github.com/paulshir/meteor-typescript-bootstrap
-cd meteor-typescript-bootstrap
+git clone https://github.com/paulshir/meteor-typescript-bootstrap mtb
+cd mtb
 npm install
-npm run setup
-```
-
-Running `npm run setup` again will wipe meteor config, packages and local databases.
-
-## Running ##
-```bash
 npm run build
 npm run meteor
 ```

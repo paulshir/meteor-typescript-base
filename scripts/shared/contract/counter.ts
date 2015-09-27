@@ -1,14 +1,11 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path="common.ts" />
+import * as common from './common'
 
-namespace _mtb.shared.contract {
-	export const Counter = {
-		COLLECTION_NAME: "counters",
-		PUBLISH_NAME: "counters"
-	}
-	
-	export interface ICounter extends IDatabaseEntry {
-		name: string;
-		value: number;
-	}
+export const Counter = {
+	COLLECTION_NAME: "counters",
+	PUBLISH_NAME: "counters"
+}
+
+export interface ICounter extends common.IDatabaseEntry {
+	name: string;
+	value: number;
 }
