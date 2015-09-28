@@ -5,10 +5,10 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "sourceMap": false,
         "experimentalDecorators": true,
         "jsx": "react",
-        "noResolve": false
+        "noResolve": false,
+        "sourceMap": false
     },
     "files": [
     ]

@@ -2,16 +2,13 @@
   "version": "v4",
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
-  "path": "typings",
-  "bundle": "typings/tsd.d.ts",
+  "path": "../typings",
+  "bundle": "../typings/tsd.d.ts",
   "installed": {
     "meteor/meteor.d.ts": {
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
     },
     "underscore/underscore.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
-    },
-    "jquery/jquery.d.ts": {
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
     },
     "react/react.d.ts": {
