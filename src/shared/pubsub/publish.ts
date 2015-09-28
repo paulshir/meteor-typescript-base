@@ -1,12 +1,13 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../../typings/tsd.d.ts" />
 
-import * as shared from '../shared/shared'
+import * as contract from '../contract/exports'
+import collections from '../collection/exports'
 
 interface PublishContext {
 	userId: string;
 }
 
-export class PublisherBase<T extends shared.contract.IDatabaseEntry> {
+export class PublisherBase<T extends contract.IDatabaseEntry> {
 	private publishAs: string;
 	private collection: Mongo.Collection<T>;
 	
@@ -26,11 +27,11 @@ export class PublisherBase<T extends shared.contract.IDatabaseEntry> {
 	}
 }
 
-export var counterPublisher: PublisherBase<shared.contract.ICounter>;
+export var counterPublisher: PublisherBase<contract.ICounter>;
 	
 export function PublishAll() {	
 	if (!counterPublisher) {
-		counterPublisher = new PublisherBase<shared.contract.ICounter>(shared.contract.Counter.PUBLISH_NAME, shared.collections.counterCollection);
+		counterPublisher = new PublisherBase<contract.ICounter>(contract.Counter.PUBLISH_NAME, collections.counterCollection);
 		counterPublisher.Publish();
 	}
 }

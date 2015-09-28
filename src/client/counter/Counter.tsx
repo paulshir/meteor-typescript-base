@@ -1,36 +1,36 @@
 import * as React from 'react';
 import * as shared from '../../shared/shared';
+import CounterEntry from './CounterEntry'
+import CounterHeader from './CounterHeader'
 
-export interface CounterProps {
-	id: string;
-	key: string;
-	name: string;
-	value: number;
+export interface CounterState {
+	counters: shared.contract.ICounter[]
 }
-declare var mtb: any;
 
-export default class Counter extends React.Component<CounterProps, {}> {	
-	private computation: Tracker.Computation;
-
-	constructor(props: CounterProps) {
-		super(props);
-	}
-
-	public handleIncrement(e: any) {
-		e.preventDefault();
-		shared.datasources.counterDataSource.incrementCounter(this.props.id);
-	}
-
-	public handleRemove(e: any) {
-		e.preventDefault();
-		shared.datasources.counterDataSource.removeCounter(this.props.id);
+export default class Counter extends React.Component<{}, CounterState> {	
+	constructor() {
+		super();
+		this.state = { counters: [] };
 	}
 	
-	render() {
-		return(<li>
-  			<p>You've pressed the {this.props.name} counter {this.props.value} times.</p>
-			<button onClick={this.handleIncrement.bind(this)}>Count</button>
-			<button onClick={this.handleRemove.bind(this)}>Remove Counter</button>
-	 	</li>);
+	public componentDidMount() {
+		Tracker.autorun(() => {
+			var value = shared.collections.counterCollection.find().fetch();
+			this.setState({counters: value });
+		});		
+	}
+	
+	public renderCounters() {
+		return this.state.counters.map((counter: shared.contract.ICounter) => {
+			return (<CounterEntry key={counter._id} id={counter._id} name={counter.name} value={counter.value} />)
+		});
+	}
+	
+	public render() {
+		return(<div>
+					<CounterHeader />
+					<ul>{this.renderCounters()}</ul>
+				</div>
+				);
 	}
 }
