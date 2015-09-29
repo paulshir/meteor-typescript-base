@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-
 import * as contract from '../contract/exports'
 import * as validation from '../validation/exports'
 import collections from '../collection/exports'

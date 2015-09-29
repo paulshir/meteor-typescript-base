@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-
 export interface IDatabaseEntry {
 	_id: string;
 	userId: string;

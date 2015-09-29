@@ -11,5 +11,6 @@
         "sourceMap": false
     },
     "files": [
+        "../typings/tsd.d.ts"
     ]
 }

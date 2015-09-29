@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-
 import * as contract from '../contract/common'
 
 export interface MeteorCallCallback<T> {

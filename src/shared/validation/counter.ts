@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-
 export function ValidateNewCounter(name: string): string {
 	if (_.isNull(name) || _.isUndefined(name)) {
 		return "[name] must be provided."

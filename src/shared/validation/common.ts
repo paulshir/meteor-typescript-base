@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
-
 export function ValidateUserLoggedIn(): string {
 	if (!Meteor.userId) {
 		return "Accounts not enabled. Not logged in."
