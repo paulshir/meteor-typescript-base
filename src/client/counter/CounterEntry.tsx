@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as shared from '../../shared/shared';
+import * as css from './counter.css';
 
 export interface CounterEntryProps {
 	id: string;
@@ -7,7 +8,6 @@ export interface CounterEntryProps {
 	name: string;
 	value: number;
 }
-declare var mtb: any;
 
 export default class CounterEntry extends React.Component<CounterEntryProps, {}> {	
 	private computation: Tracker.Computation;
@@ -27,7 +27,7 @@ export default class CounterEntry extends React.Component<CounterEntryProps, {}>
 	}
 	
 	public render() {
-		return(<li>
+		return (<li className={css.counterEntry}>
   			<p>You've pressed the {this.props.name} counter {this.props.value} times.</p>
 			<button onClick={this.handleIncrement.bind(this)}>Count</button>
 			<button onClick={this.handleRemove.bind(this)}>Remove Counter</button>

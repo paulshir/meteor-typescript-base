@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as shared from '../../shared/shared';
-import CounterEntry from './CounterEntry'
-import CounterHeader from './CounterHeader'
+import CounterEntry from './CounterEntry';
+import CounterHeader from './CounterHeader';
+import * as css from './counter.css';
 
 export interface CounterState {
 	counters: shared.contract.ICounter[]
@@ -27,7 +28,7 @@ export default class Counter extends React.Component<{}, CounterState> {
 	}
 	
 	public render() {
-		return(<div>
+		return (<div className={css.counter}>
 					<CounterHeader />
 					<ul>{this.renderCounters()}</ul>
 				</div>

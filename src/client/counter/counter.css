@@ -1,0 +1,11 @@
+:local(.counter) {
+	background-color: #FFEEEE;
+}
+
+:local(.counterHeader) {
+	background-color: #EEFFEE;
+}
+
+:local(.counterEntry) {
+	background-color: #EEEEFF;
+}
