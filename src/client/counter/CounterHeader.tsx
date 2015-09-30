@@ -16,8 +16,8 @@ export default class CounterHeader extends React.Component<{}, {}> {
 						<h1>Counter</h1>
 						<form className="new-counter" onSubmit={this.handleSubmit.bind(this)}>
 							<fieldset className="form-group">
-								<label htmlFor="exampleInputEmail1">Email address</label>
-								<input type="name" name="name" className="form-control" id="exampleInputEmail1" placeholder="Enter counter name" ref="counter" />
+								<label htmlFor="name">Add a new counter</label>
+								<input type="name" name="name" className="form-control" placeholder="Enter counter name" ref="counter" />
 								<small className="text-muted">Enter Counter name and hit enter.</small>
 							</fieldset>
 						</form>
