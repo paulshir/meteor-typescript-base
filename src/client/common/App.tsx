@@ -11,6 +11,6 @@ const LoginButtons = BlazeToReact('loginButtons');
 
 export default class App extends React.Component<{}, {}> {
 	public render() {
-		return (<div><LoginButtons /><Counter /></div>);
+		return (<div className="container"><LoginButtons /><Counter /></div>);
 	}
 }

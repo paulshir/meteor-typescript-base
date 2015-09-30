@@ -30,7 +30,7 @@ export default class Counter extends React.Component<{}, CounterState> {
 	public render() {
 		return (<div className={css.counter}>
 					<CounterHeader />
-					<ul>{this.renderCounters()}</ul>
+					<div className="row">{this.renderCounters()}</div>
 				</div>
 				);
 	}
