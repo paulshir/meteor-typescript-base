@@ -12,7 +12,10 @@
       "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
     },
     "react/react.d.ts": {
-      "commit": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit": "66f88ec51858bb21bc375fa91a963c04bc09401e"
+    },
+    "react-dom/react-dom.d.ts": {
+      "commit": "66f88ec51858bb21bc375fa91a963c04bc09401e"
     }
   }
 }

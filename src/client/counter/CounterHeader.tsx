@@ -5,9 +5,9 @@ import * as css from './counter.css';
 export default class CounterHeader extends React.Component<{}, {}> {
 	public handleSubmit(e: any) {
 		e.preventDefault();
-		var name: string = (React.findDOMNode(this.refs["counter"]) as any).value.trim();
+		var name: string = (this.refs["counter"] as any).value.trim();
 		shared.datasources.counterDataSource.newCounter(name);
-		(React.findDOMNode(this.refs["counter"]) as any).value = "";
+		((this.refs["counter"]) as any).value = "";
 	}
 	
 	public render() {

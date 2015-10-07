@@ -7,12 +7,9 @@ module.exports = {
     client: './src/client/client.tsx',
     server: './src/server/server.ts'
   },
-  externals: {
-    'react': 'React'
-  },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loader: 'expose?mtb!ts-loader'},
+      { test: /\.tsx?$/, loader: 'expose?app!babel!ts-loader'},
       { test: /\.html$/, loader: 'file?name=client/[name].html'},
       { test: /\.css$/, loader: 'style!css!cssnext' }
     ]
