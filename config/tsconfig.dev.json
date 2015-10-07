@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ES5",
+        "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "experimentalDecorators": true,
         "jsx": "react",
         "noResolve": false,
-        "sourceMap": false
+        "sourceMap": true
     },
     "files": [
         "../typings/tsd.d.ts"

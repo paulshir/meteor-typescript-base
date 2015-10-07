@@ -1,5 +1,5 @@
 export interface IDatabaseEntry {
-	_id: string;
+	_id?: string;
 	userId: string;
 	createdUtc: Date;
 	updatedUtc: Date;		

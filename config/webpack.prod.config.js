@@ -3,7 +3,6 @@ var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname, '..'),
-  devtool: 'inline-source-map',
   entry: {
     client: './src/client/client.tsx',
     server: './src/server/server.ts'
@@ -22,12 +21,12 @@ module.exports = {
     path: path.join(__dirname, '..', 'build')
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),  
+    new webpack.optimize.UglifyJsPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.json']
   },
   ts: {
-    configFileName: 'config/tsconfig.dev.json'
+    configFileName: "config/tsconfig.dev.json"
   }
 };
