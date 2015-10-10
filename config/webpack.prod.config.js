@@ -1,23 +1,26 @@
 var path = require('path');
 var webpack = require('webpack');
+var pkg = require('../package.json');
 
 module.exports = {
   context: path.join(__dirname, '..'),
   entry: {
     client: './src/client/client.tsx',
     server: './src/server/server.ts',
-    clientlibs: ['react', 'react-dom', 'normalize-css']
+    clientlibs: Object.keys(pkg.dependencies)
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loader: 'babel!ts-loader'},
-      { test: /\.html$/, loader: 'file?name=client/[name].html'},
+      { test: /\.tsx?$/, loader: 'expose?app!babel!ts-loader'},
+      { test: /\main.html$/, loader: 'file?name=client/main.html'},
+      { test: /\.html$/, loader: 'file?name=client/[name].[hash].html', exclude: /\main.html$/},
       { test: /\.css$/, loader: 'style!css!cssnext' },
       { test: /\.less$/, loader: 'style!css!less' }
     ]
   },
   output: {
     filename: '[name]/main.js',
+    sourceMapFilename: '[name]/main.js.map',
     path: path.join(__dirname, '..', 'build')
   },
   plugins: [
@@ -26,8 +29,9 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'clientlibs', filename: 'client/libs.js', chunks: ['client'] })
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }}),  
+    new webpack.optimize.CommonsChunkPlugin({ name: 'clientlibs', filename: 'client/lib.[chunkhash].js', chunks: ['client'] }),
+    new webpack.ContextReplacementPlugin(/.*$/, /NEVER_MATCH^/)
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.json']
