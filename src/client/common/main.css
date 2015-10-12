@@ -1,3 +1,22 @@
+html {
+	box-sizing: border-box;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
 body {
 	background-color: #EEEEEE;
+}
+
+.app {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.app main {
+	flex: 1;
+	padding-top: 2rem;
 }

@@ -27,11 +27,11 @@ export default class CounterEntry extends React.Component<CounterEntryProps, {}>
 	}
 	
 	public render() {
-		return (<div className={css.counterEntry + " col-sm-6"}>
-  			<p>You've pressed the {this.props.name} counter {this.props.value} times.</p>
+		return (<div className={css.counterEntry}>
+  			You've pressed the {this.props.name} counter {this.props.value} times.
 			<div>
-				<button type="button" className="btn btn-primary" onClick={this.handleIncrement.bind(this)}>Count</button>
-				<button type="button" className="btn btn-danger" onClick={this.handleRemove.bind(this)}>Remove Counter</button>
+				<button type="button" className="button-primary" onTouchTap={this.handleIncrement.bind(this)}>Count</button>
+				<button type="button" onTouchTap={this.handleRemove.bind(this)}>Remove Counter</button>
 			</div>
 	 	</div>);
 	}

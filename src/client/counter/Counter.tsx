@@ -1,8 +1,12 @@
+import * as css from './counter.css';
+
 import * as React from 'react';
 import * as shared from '../../shared/shared';
 import CounterEntry from './CounterEntry';
 import CounterHeader from './CounterHeader';
-import * as css from './counter.css';
+import Grid from '../components/grid/grid'
+import GridCell from '../components/grid/gridcell'
+
 
 export interface CounterState {
 	counters: shared.contract.ICounter[]
@@ -22,15 +26,15 @@ export default class Counter extends React.Component<{}, CounterState> {
 	}
 	
 	public renderCounters() {
-		return this.state.counters.map((counter: shared.contract.ICounter) => {
-			return (<CounterEntry key={counter._id} id={counter._id} name={counter.name} value={counter.value} />)
+		return this.state.counters.map((counter: shared.contract.ICounter, index: number, array: shared.contract.ICounter[]) => {
+			return (<GridCell key={counter._id} cellCount={{ mobile: 12, tablet: 6 }}><CounterEntry key={counter._id} id={counter._id} name={counter.name} value={counter.value} /></GridCell>)
 		});
 	}
 	
 	public render() {
-		return (<div className={css.counter}>
-					<CounterHeader />
-					<div className="row">{this.renderCounters()}</div>
+		return (<div className={css.counter + " container"}>
+					<Grid><GridCell cellCount={{ mobile: 12 }}><CounterHeader /></GridCell></Grid>
+					<Grid>{this.renderCounters()}</Grid>
 				</div>
 				);
 	}

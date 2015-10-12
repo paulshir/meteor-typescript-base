@@ -4,8 +4,15 @@
 
 :local(.counterHeader) {
 	background-color: #EEFFEE;
+	padding: 1rem;
+	text-align: center;
 }
 
 :local(.counterEntry) {
 	background-color: #EEEEFF;
+	padding: 1rem;
+}
+
+:local(.counterEntry) button {
+	margin-right: 1rem;
 }

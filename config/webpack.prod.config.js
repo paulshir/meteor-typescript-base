@@ -1,13 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('../package.json');
+var filtedPackagesFromClientLib = ['skeleton-css', 'fbjs'];
 
 module.exports = {
   context: path.join(__dirname, '..'),
   entry: {
     client: './src/client/client.tsx',
     server: './src/server/server.ts',
-    clientlibs: Object.keys(pkg.dependencies)
+    clientlibs: Object.keys(pkg.dependencies).filter(function (lib) { return filtedPackagesFromClientLib.indexOf(lib) === -1 })
   },
   module: {
     loaders: [
